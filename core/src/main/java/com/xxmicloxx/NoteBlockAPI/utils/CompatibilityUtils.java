@@ -5,6 +5,7 @@ import com.xxmicloxx.NoteBlockAPI.model.SoundCategory;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.utils.NamespaceID;
 import org.bukkit.Sound;
 
 import java.util.ArrayList;
@@ -132,7 +133,23 @@ public class CompatibilityUtils {
 
     private static void playSoundUniversal(Player player, Pos location, Object sound,
                                            net.kyori.adventure.sound.Sound.Source category, float volume, float pitch, float distance) {
-        // TODO actual playing
+        if(sound instanceof Sound snd) {
+            player.playSound(net.kyori.adventure.sound.Sound.sound(
+                    snd,
+                    category,
+                    volume,
+                    pitch
+            ), location);
+        }else if(sound instanceof String str) {
+            try {
+                player.playSound(net.kyori.adventure.sound.Sound.sound(
+                        NamespaceID.from(str),
+                        category,
+                        volume,
+                        pitch
+                ), location);
+            }catch (Exception ignored) {}
+        }
     }
 
     /**
