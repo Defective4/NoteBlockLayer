@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>net.defekt.racuszki.noteblocklayer</groupId>
+        <artifactId>noteblocklayer</artifactId>
+        <version>1.6.2</version>
+    </parent>
+
+    <artifactId>core</artifactId>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>dev.hollowcube</groupId>
+            <artifactId>minestom-ce</artifactId>
+            <version>8715f4305d</version>
+        </dependency>
+        <dependency>
+            <groupId>net.defekt.racuszki.noteblocklayer</groupId>
+            <artifactId>bukkit-layer</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+    </dependencies>
+
+</project>
