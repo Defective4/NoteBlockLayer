@@ -32,7 +32,7 @@ public abstract class RangeSongPlayer extends SongPlayer {
     }
 
     @Override
-    void update(String key, Object value) {
+    public void update(String key, Object value) {
         super.update(key, value);
 
         switch (key) {

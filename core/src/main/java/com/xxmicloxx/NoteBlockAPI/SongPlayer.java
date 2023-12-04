@@ -5,7 +5,6 @@ import net.minestom.server.entity.Player;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -85,7 +84,7 @@ public abstract class SongPlayer {
                         instruments);
     }
 
-    void update(String key, Object value) {
+    public void update(String key, Object value) {
         switch (key) {
             case "playing":
                 playing = (boolean) value;
@@ -527,15 +526,14 @@ public abstract class SongPlayer {
 
     void CallUpdate(String key, Object value) {
         try {
-            Method m = com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer.class.getDeclaredMethod("update",
-                                                                                                String.class,
-                                                                                                Object.class);
-            m.setAccessible(true);
-            m.invoke(newSongPlayer, key, value);
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-                 | SecurityException e) {
+            newSongPlayer.update(key, value);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    void setNewInstance(com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer newPlayer) {
+        newSongPlayer = newPlayer;
     }
 
     void makeNewClone(Class newClass) {

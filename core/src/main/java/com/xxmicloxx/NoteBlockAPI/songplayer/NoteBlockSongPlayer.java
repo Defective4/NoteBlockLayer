@@ -38,7 +38,7 @@ public class NoteBlockSongPlayer extends RangeSongPlayer {
     }
 
     @Override
-    void update(String key, Object value) {
+    public void update(String key, Object value) {
         super.update(key, value);
 
         switch (key) {

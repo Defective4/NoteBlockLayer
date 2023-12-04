@@ -11,7 +11,6 @@ import net.minestom.server.entity.Player;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
@@ -139,7 +138,7 @@ public abstract class SongPlayer {
         plugin = NoteBlockAPI.getAPI();
     }
 
-    void update(String key, Object value) {
+    public void update(String key, Object value) {
         switch (key) {
             case "playing":
                 playing = (boolean) value;
@@ -925,13 +924,8 @@ public abstract class SongPlayer {
             return;
         }
         try {
-            Method m = com.xxmicloxx.NoteBlockAPI.SongPlayer.class.getDeclaredMethod("update",
-                                                                                     String.class,
-                                                                                     Object.class);
-            m.setAccessible(true);
-            m.invoke(oldSongPlayer, key, value);
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-                 | SecurityException e) {
+            oldSongPlayer.update(key, value);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
