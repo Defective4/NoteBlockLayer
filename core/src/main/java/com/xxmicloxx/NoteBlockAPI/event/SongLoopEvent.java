@@ -7,8 +7,8 @@ import net.minestom.server.event.trait.CancellableEvent;
 public class SongLoopEvent implements CancellableEvent {
 
 
-    private SongPlayer song;
-    private boolean cancelled = false;
+    private final SongPlayer song;
+    private boolean cancelled;
 
     public SongLoopEvent(SongPlayer song) {
         this.song = song;

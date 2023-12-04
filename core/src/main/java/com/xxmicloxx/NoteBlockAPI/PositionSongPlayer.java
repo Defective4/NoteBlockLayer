@@ -51,8 +51,8 @@ public class PositionSongPlayer extends SongPlayer {
             Note note = layer.getNote(tick);
             if (note == null) continue;
 
-            float volume = ((layer.getVolume() * (int) this.volume * (int) playerVolume) / 1000000F)
-                           * ((1F / 16F) * getDistance());
+            float volume = (layer.getVolume() * (int) this.volume * (int) playerVolume) / 1000000F
+                           * (1F / 16F * getDistance());
             float pitch = NotePitch.getPitch(note.getKey() - 33);
 
             if (InstrumentUtils.isCustomInstrument(note.getInstrument())) {

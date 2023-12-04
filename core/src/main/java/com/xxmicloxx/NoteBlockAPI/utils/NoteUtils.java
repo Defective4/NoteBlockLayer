@@ -4,7 +4,7 @@ import com.xxmicloxx.NoteBlockAPI.model.Note;
 
 public class NoteUtils {
 
-    private static float[] pitches = null;
+    private static float[] pitches;
 
     static {
         pitches = new float[2401];
@@ -106,8 +106,7 @@ public class NoteUtils {
         key = applyPitchToKey(key, pitch);
 
         if (key < 33) return true;
-        else if (key < 57) return false;
-        else return true;
+        else return key >= 57;
     }
 
 }

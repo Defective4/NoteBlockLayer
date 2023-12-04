@@ -203,7 +203,7 @@ public class NBSDecoder {
         int byte2 = dataInputStream.readUnsignedByte();
         int byte3 = dataInputStream.readUnsignedByte();
         int byte4 = dataInputStream.readUnsignedByte();
-        return (byte1 + (byte2 << 8) + (byte3 << 16) + (byte4 << 24));
+        return byte1 + (byte2 << 8) + (byte3 << 16) + (byte4 << 24);
     }
 
     private static String readString(DataInputStream dataInputStream) throws IOException {

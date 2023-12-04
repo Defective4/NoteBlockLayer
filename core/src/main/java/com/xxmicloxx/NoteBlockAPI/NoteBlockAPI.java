@@ -17,8 +17,8 @@ public class NoteBlockAPI {
 
     private static final NoteBlockAPI plugin = new NoteBlockAPI();
 
-    private Map<UUID, ArrayList<SongPlayer>> playingSongs = new ConcurrentHashMap<UUID, ArrayList<SongPlayer>>();
-    private Map<UUID, Byte> playerVolume = new ConcurrentHashMap<UUID, Byte>();
+    private final Map<UUID, ArrayList<SongPlayer>> playingSongs = new ConcurrentHashMap<UUID, ArrayList<SongPlayer>>();
+    private final Map<UUID, Byte> playerVolume = new ConcurrentHashMap<UUID, Byte>();
 
     private boolean disabling;
 
@@ -40,7 +40,7 @@ public class NoteBlockAPI {
      */
     public static boolean isReceivingSong(UUID uuid) {
         ArrayList<SongPlayer> songs = plugin.playingSongs.get(uuid);
-        return (songs != null && !songs.isEmpty());
+        return songs != null && !songs.isEmpty();
     }
 
     /**

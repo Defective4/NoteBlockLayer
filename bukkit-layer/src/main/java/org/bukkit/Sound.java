@@ -1494,7 +1494,7 @@ public enum Sound implements Keyed, net.kyori.adventure.sound.Sound.Type {
 
     private final NamespaceID key;
 
-    private Sound(String key) {
+    Sound(String key) {
         this.key = NamespaceID.from("minecraft:" + key);
     }
 

@@ -50,7 +50,7 @@ public class Interpolator {
         // Perform the interpolation here
         double[] yi = new double[xi.length];
         for (int i = 0; i < xi.length; i++) {
-            if ((xi[i] > x[x.length - 1]) || (xi[i] < x[0])) {
+            if (xi[i] > x[x.length - 1] || xi[i] < x[0]) {
                 yi[i] = Double.NaN;
             } else {
                 int loc = Arrays.binarySearch(x, xi[i]);

@@ -9,7 +9,7 @@ import net.minestom.server.event.Event;
 public class SongEndEvent implements Event {
 
 
-    private SongPlayer song;
+    private final SongPlayer song;
 
     public SongEndEvent(SongPlayer song) {
         this.song = song;

@@ -27,25 +27,25 @@ public abstract class SongPlayer {
     private final Random rng = new Random();
     protected Song song;
     protected Playlist playlist;
-    protected int actualSong = 0;
-    protected boolean playing = false;
-    protected boolean fading = false;
+    protected int actualSong;
+    protected boolean playing;
+    protected boolean fading;
     protected short tick = -1;
     protected Map<UUID, Boolean> playerList = new ConcurrentHashMap<UUID, Boolean>();
-    protected boolean autoDestroy = false;
-    protected boolean destroyed = false;
+    protected boolean autoDestroy;
+    protected boolean destroyed;
     protected byte volume = 100;
     protected Fade fadeIn;
     protected Fade fadeOut;
-    protected Fade fadeTemp = null;
+    protected Fade fadeTemp;
     protected RepeatMode repeat = RepeatMode.NO;
-    protected boolean random = false;
+    protected boolean random;
     protected Map<Song, Boolean> songQueue = new ConcurrentHashMap<Song, Boolean>(); //True if already played
     protected NoteBlockAPI plugin;
 
     protected Sound.Source soundCategory;
     protected ChannelMode channelMode = new MonoMode();
-    protected boolean enable10Octave = false;
+    protected boolean enable10Octave;
 
     com.xxmicloxx.NoteBlockAPI.SongPlayer oldSongPlayer;
 
@@ -649,7 +649,7 @@ public abstract class SongPlayer {
      * @param fade
      */
     public void setPlaying(boolean playing, boolean fade) {
-        setPlaying(playing, fade ? (playing ? fadeIn : fadeOut) : null);
+        setPlaying(playing, fade ? playing ? fadeIn : fadeOut : null);
     }
 
     public void setPlaying(boolean playing, Fade fade) {
@@ -938,7 +938,7 @@ public abstract class SongPlayer {
 
     void makeNewClone(Class newClass) {
         try {
-            Constructor c = newClass.getDeclaredConstructor(new Class[]{SongPlayer.class});
+            Constructor c = newClass.getDeclaredConstructor(SongPlayer.class);
             c.setAccessible(true);
             oldSongPlayer = (com.xxmicloxx.NoteBlockAPI.SongPlayer) c.newInstance(new Object[]{this});
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException

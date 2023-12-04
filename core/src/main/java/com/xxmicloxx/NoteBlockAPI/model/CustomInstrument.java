@@ -5,9 +5,9 @@ package com.xxmicloxx.NoteBlockAPI.model;
  */
 public class CustomInstrument {
 
-    private byte index;
-    private String name;
-    private String soundFileName;
+    private final byte index;
+    private final String name;
+    private final String soundFileName;
     private org.bukkit.Sound sound;
 
     /**

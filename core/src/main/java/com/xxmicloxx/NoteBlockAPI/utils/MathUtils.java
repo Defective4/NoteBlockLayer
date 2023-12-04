@@ -5,8 +5,8 @@ import net.minestom.server.coordinate.Pos;
 
 public class MathUtils {
 
-    private static double[] cos = new double[360];
-    private static double[] sin = new double[360];
+    private static final double[] cos = new double[360];
+    private static final double[] sin = new double[360];
 
     static {
         for (int deg = 0; deg < 360; deg++) {
