@@ -18,8 +18,6 @@ public class Playlist {
 
     /**
      * Add array of {@link Song} to playlist
-     *
-     * @param songs
      */
     public void add(Song... songs) {
         if (songs.length == 0) {
@@ -31,9 +29,6 @@ public class Playlist {
 
     /**
      * Insert array of {@link Song} at a specified index
-     *
-     * @param index
-     * @param songs
      */
     public void insert(int index, Song... songs) {
         if (songs.length == 0) {
@@ -56,14 +51,12 @@ public class Playlist {
     /**
      * Removes songs from playlist
      *
-     * @param songs
      * @throws IllegalArgumentException when you try to remove all {@link Song} from {@link Playlist}
      */
     public void remove(Song... songs) {
-        ArrayList<Song> songsTemp = new ArrayList<>();
-        songsTemp.addAll(this.songs);
+        ArrayList<Song> songsTemp = new ArrayList<>(this.songs);
         songsTemp.removeAll(Arrays.asList(songs));
-        if (songsTemp.size() > 0) {
+        if (!songsTemp.isEmpty()) {
             this.songs = songsTemp;
         } else {
             throw new IllegalArgumentException("Cannot remove all songs from playlist");
@@ -74,7 +67,6 @@ public class Playlist {
      * Get {@link Song} in playlist at specified index
      *
      * @param songNumber - song index
-     * @return
      */
     public Song get(int songNumber) {
         return songs.get(songNumber);
@@ -82,8 +74,6 @@ public class Playlist {
 
     /**
      * Get number of {@link Song} in playlist
-     *
-     * @return
      */
     public int getCount() {
         return songs.size();
@@ -92,7 +82,6 @@ public class Playlist {
     /**
      * Check whether {@link Song} is not last in playlist
      *
-     * @param songNumber
      * @return true if there is another {@link Song} after specified index
      */
     public boolean hasNext(int songNumber) {
@@ -101,9 +90,6 @@ public class Playlist {
 
     /**
      * Check whether {@link Song} with specified index exists in playlist
-     *
-     * @param songNumber
-     * @return
      */
     public boolean exist(int songNumber) {
         return songs.size() > songNumber;
@@ -112,7 +98,6 @@ public class Playlist {
     /**
      * Returns index of song.
      *
-     * @param song
      * @return Index of song. -1 if song is not in playelist
      */
     public int getIndex(Song song) {
@@ -121,9 +106,6 @@ public class Playlist {
 
     /**
      * Check whether playlist contains song.
-     *
-     * @param song
-     * @return
      */
     public boolean contains(Song song) {
         return songs.contains(song);
@@ -131,8 +113,6 @@ public class Playlist {
 
     /**
      * Returns list of Songs in Playlist
-     *
-     * @return
      */
     public ArrayList<Song> getSongList() {
         return (ArrayList<Song>) songs.clone();

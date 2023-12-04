@@ -21,8 +21,8 @@ public class Song implements Cloneable {
     private final float delay;
     private final CustomInstrument[] customInstruments;
     private final int firstCustomInstrumentIndex;
-    private HashMap<Integer, Layer> layerHashMap = new HashMap<Integer, Layer>();
-    private boolean isStereo;
+    private final boolean isStereo;
+    private final HashMap<Integer, Layer> layerHashMap;
 
     /**
      * Create Song instance by copying other Song parameters
@@ -45,14 +45,6 @@ public class Song implements Cloneable {
     }
 
     /**
-     * @param speed
-     * @param layerHashMap
-     * @param songHeight
-     * @param length
-     * @param title
-     * @param author
-     * @param description
-     * @param path
      * @deprecated Use {@link #Song(float, HashMap, short, short, String, String, String, File, int, boolean)}
      */
     @Deprecated
@@ -73,15 +65,6 @@ public class Song implements Cloneable {
     }
 
     /**
-     * @param speed
-     * @param layerHashMap
-     * @param songHeight
-     * @param length
-     * @param title
-     * @param author
-     * @param description
-     * @param path
-     * @param customInstruments
      * @deprecated Use {@link #Song(float, HashMap, short, short, String, String, String, File, int, CustomInstrument[], boolean)}
      */
     @Deprecated
@@ -102,15 +85,6 @@ public class Song implements Cloneable {
     }
 
     /**
-     * @param speed
-     * @param layerHashMap
-     * @param songHeight
-     * @param length
-     * @param title
-     * @param author
-     * @param description
-     * @param path
-     * @param firstCustomInstrumentIndex
      * @deprecated Use {@link #Song(float, HashMap, short, short, String, String, String, File, int, boolean)}
      */
     @Deprecated
@@ -131,16 +105,6 @@ public class Song implements Cloneable {
     }
 
     /**
-     * @param speed
-     * @param layerHashMap
-     * @param songHeight
-     * @param length
-     * @param title
-     * @param author
-     * @param description
-     * @param path
-     * @param firstCustomInstrumentIndex
-     * @param customInstruments
      * @deprecated Use {@link #Song(float, HashMap, short, short, String, String, String, File, int, CustomInstrument[], boolean)}
      */
     @Deprecated
@@ -305,8 +269,6 @@ public class Song implements Cloneable {
 
     /**
      * Gets the speed (ticks per second) of this Song
-     *
-     * @return
      */
     public float getSpeed() {
         return speed;
@@ -342,8 +304,6 @@ public class Song implements Cloneable {
 
     /**
      * Returns true if song has at least one stereo {@link Note} or {@link Layer} in nbs file
-     *
-     * @return
      */
     public boolean isStereo() {
         return isStereo;

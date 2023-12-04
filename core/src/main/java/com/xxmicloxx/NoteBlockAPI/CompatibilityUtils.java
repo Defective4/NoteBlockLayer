@@ -10,7 +10,10 @@ import java.util.ArrayList;
  * @deprecated {@link com.xxmicloxx.NoteBlockAPI.utils.CompatibilityUtils}
  */
 @Deprecated
-public class CompatibilityUtils {
+public final class CompatibilityUtils {
+
+    private CompatibilityUtils() {
+    }
 
     /**
      * Returns whether the version of Bukkit is or is after 1.12
@@ -27,19 +30,12 @@ public class CompatibilityUtils {
      * @return can use SoundCategory
      * @see SoundCategory
      */
-    protected static boolean isSoundCategoryCompatible() {
+    private static boolean isSoundCategoryCompatible() {
         return true;
     }
 
     /**
      * Plays a sound using NMS and reflection
-     *
-     * @param player
-     * @param location
-     * @param sound
-     * @param category
-     * @param volume
-     * @param pitch
      */
     public static void playSound(Player player, Pos location, String sound,
                                  net.kyori.adventure.sound.Sound.Source category, float volume, float pitch) {
@@ -53,13 +49,6 @@ public class CompatibilityUtils {
 
     /**
      * Plays a sound using NMS and reflection
-     *
-     * @param player
-     * @param location
-     * @param sound
-     * @param category
-     * @param volume
-     * @param pitch
      */
     public static void playSound(Player player, Pos location, Sound sound,
                                  net.kyori.adventure.sound.Sound.Source category, float volume, float pitch) {
@@ -112,9 +101,6 @@ public class CompatibilityUtils {
 
     /**
      * Return list of custom instruments based on song first custom instrument index and server version
-     *
-     * @param firstCustomInstrumentIndex
-     * @return
      */
     public static ArrayList<CustomInstrument> getVersionCustomInstrumentsForSong(int firstCustomInstrumentIndex) {
         ArrayList<CustomInstrument> instruments = new ArrayList<>();

@@ -8,7 +8,7 @@ import java.util.HashMap;
  */
 public class Layer {
 
-    private HashMap<Integer, Note> notesAtTicks = new HashMap<Integer, Note>();
+    private HashMap<Integer, Note> notesAtTicks = new HashMap<>();
     private byte volume = 100;
     private int panning = 100;
     private String name = "";
@@ -68,8 +68,6 @@ public class Layer {
 
     /**
      * Sets the volume for all notes in the Layer
-     *
-     * @param volume
      */
     public void setVolume(byte volume) {
         this.volume = volume;
@@ -86,8 +84,6 @@ public class Layer {
 
     /**
      * Sets the panning for all notes in the Layer
-     *
-     * @param panning
      */
     public void setPanning(int panning) {
         this.panning = panning;

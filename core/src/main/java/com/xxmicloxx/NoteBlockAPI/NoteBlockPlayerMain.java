@@ -4,10 +4,7 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.timer.ExecutionType;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @deprecated {@link com.xxmicloxx.NoteBlockAPI.NoteBlockAPI}
@@ -17,16 +14,15 @@ public class NoteBlockPlayerMain {
 
     public static NoteBlockPlayerMain plugin = new NoteBlockPlayerMain();
 
-    public Map<String, ArrayList<SongPlayer>> playingSongs =
-            Collections.synchronizedMap(new HashMap<String, ArrayList<SongPlayer>>());
-    public Map<String, Byte> playerVolume = Collections.synchronizedMap(new HashMap<String, Byte>());
+    public final Map<UUID, ArrayList<SongPlayer>> playingSongs =
+            Collections.synchronizedMap(new HashMap<>());
+    public final Map<UUID, Byte> playerVolume = Collections.synchronizedMap(new HashMap<>());
 
     private boolean disabling;
 
     /**
      * Returns true if a Player is currently receiving a song
      *
-     * @param player
      * @return is receiving a song
      */
     public static boolean isReceivingSong(Player player) {
@@ -36,8 +32,6 @@ public class NoteBlockPlayerMain {
 
     /**
      * Stops the song for a Player
-     *
-     * @param player
      */
     public static void stopPlaying(Player player) {
         if (plugin.playingSongs.get(player.getUuid()) == null) {
@@ -50,28 +44,19 @@ public class NoteBlockPlayerMain {
 
     /**
      * Sets the volume for a given Player
-     *
-     * @param player
-     * @param volume
      */
     public static void setPlayerVolume(Player player, byte volume) {
-        plugin.playerVolume.put(player.getUsername(), volume);
+        plugin.playerVolume.put(player.getUuid(), volume);
         NoteBlockAPI.setPlayerVolume(player, volume);
     }
 
     /**
      * Gets the volume for a given Player
      *
-     * @param player
      * @return volume (byte)
      */
     public static byte getPlayerVolume(Player player) {
-        Byte byteObj = plugin.playerVolume.get(player.getUsername());
-        if (byteObj == null) {
-            byteObj = 100;
-            plugin.playerVolume.put(player.getUsername(), byteObj);
-        }
-        return byteObj;
+        return plugin.playerVolume.computeIfAbsent(player.getUuid(), k -> (byte) 100);
     }
 
     public void onEnable() {

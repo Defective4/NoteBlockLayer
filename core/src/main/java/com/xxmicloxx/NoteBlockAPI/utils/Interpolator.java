@@ -18,7 +18,10 @@ import java.util.Arrays;
  * Copyright 2002 MBARI.<br>
  * MBARI Proprietary Information. All rights reserved.<br><hr><br>
  */
-public class Interpolator {
+public final class Interpolator {
+
+    private Interpolator() {
+    }
 
     public static double[] interpLinear(double[] x, double[] y, double[] xi) throws IllegalArgumentException {
         if (x.length != y.length) {

@@ -11,7 +11,10 @@ import java.util.HashMap;
  * @deprecated {@link com.xxmicloxx.NoteBlockAPI.utils.NBSDecoder}
  */
 @Deprecated
-public class NBSDecoder {
+public final class NBSDecoder {
+
+    private NBSDecoder() {
+    }
 
     /**
      * Parses a Song from a Note Block Studio project file (.nbs)
@@ -49,7 +52,7 @@ public class NBSDecoder {
      * @see Song
      */
     private static Song parse(InputStream inputStream, File songFile) {
-        HashMap<Integer, Layer> layerHashMap = new HashMap<Integer, Layer>();
+        HashMap<Integer, Layer> layerHashMap = new HashMap<>();
         byte biggestInstrumentIndex = -1;
         try {
             DataInputStream dataInputStream = new DataInputStream(inputStream);
@@ -165,8 +168,6 @@ public class NBSDecoder {
 
             return new Song(speed, layerHashMap, songHeight, length, title,
                             author, description, songFile, firstcustominstrument, customInstrumentsArray);
-        } catch (EOFException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -175,12 +176,6 @@ public class NBSDecoder {
 
     /**
      * Sets a note at a tick in a song
-     *
-     * @param layerIndex
-     * @param ticks
-     * @param instrument
-     * @param key
-     * @param layerHashMap
      */
     private static void setNote(int layerIndex, int ticks, byte instrument,
                                 byte key, HashMap<Integer, Layer> layerHashMap) {

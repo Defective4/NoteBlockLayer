@@ -25,7 +25,7 @@ public class StereoMode extends ChannelMode {
             return;
         }
 
-        float distance = 0;
+        float distance;
         if (layer.getPanning() == 100) {
             distance = (note.getPanning() - 100) / 100f * maxDistance;
         } else {
@@ -75,7 +75,7 @@ public class StereoMode extends ChannelMode {
         else
             pitch = NoteUtils.getPitchInOctave(note);
 
-        float distance = 0;
+        float distance;
         if (layer.getPanning() == 100) {
             distance = (note.getPanning() - 100) / 100f * maxDistance;
         } else {
@@ -138,8 +138,6 @@ public class StereoMode extends ChannelMode {
 
     /**
      * Returns scale of panning in blocks. {@link Note} with maximum left panning will be played this distance from {@link Player}'s head on left side.
-     *
-     * @return
      */
     public float getMaxDistance() {
         return maxDistance;
@@ -147,8 +145,6 @@ public class StereoMode extends ChannelMode {
 
     /**
      * Sets scale of panning in blocks. {@link Note} with maximum left panning will be played this distance from {@link Player}'s head on left side.
-     *
-     * @param maxDistance
      */
     public void setMaxDistance(float maxDistance) {
         this.maxDistance = maxDistance;
@@ -166,7 +162,6 @@ public class StereoMode extends ChannelMode {
     /**
      * Sets fallback {@link ChannelMode} which is used when song is not stereo. Set to null to disable.
      *
-     * @param fallbackChannelMode
      * @throws IllegalArgumentException if parameter is instance of StereoMode
      */
     public void setFallbackChannelMode(ChannelMode fallbackChannelMode) {

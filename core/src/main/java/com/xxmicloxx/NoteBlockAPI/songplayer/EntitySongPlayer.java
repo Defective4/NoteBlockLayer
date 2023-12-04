@@ -43,8 +43,6 @@ public class EntitySongPlayer extends RangeSongPlayer {
 
     /**
      * Get {@link Entity} associated with this {@link EntitySongPlayer}
-     *
-     * @return
      */
     public Entity getEntity() {
         return entity;
@@ -52,8 +50,6 @@ public class EntitySongPlayer extends RangeSongPlayer {
 
     /**
      * Set entity associated with this {@link EntitySongPlayer}
-     *
-     * @param entity
      */
     public void setEntity(Entity entity) {
         this.entity = entity;
