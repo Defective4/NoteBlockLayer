@@ -44,7 +44,7 @@ public final class TestServer {
                             sp.addPlayer(player);
                             sp.playSong(0);
                             sp.setPlaying(true);
-                            System.out.println(sp);
+                            sender.sendMessage("Playing!");
                         } catch (Exception e) {
                             sender.sendMessage(e.toString());
                             sender.sendMessage("Check console for errors");
