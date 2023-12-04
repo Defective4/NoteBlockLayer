@@ -53,7 +53,6 @@ public final class NBSDecoder {
      */
     private static Song parse(InputStream inputStream, File songFile) {
         HashMap<Integer, Layer> layerHashMap = new HashMap<>();
-        byte biggestInstrumentIndex = -1;
         try {
             DataInputStream dataInputStream = new DataInputStream(inputStream);
             short length = readShort(dataInputStream);

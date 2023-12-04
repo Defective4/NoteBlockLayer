@@ -22,6 +22,9 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public abstract class SongPlayer {
 
+    public static final String FADE_DONE_KEY = "fadeDone";
+    public static final String SONG_KEY = "song";
+    public static final String TICK_KEY = "tick";
     protected final Map<UUID, Boolean> playerList = new ConcurrentHashMap<>();
     protected final Fade fadeIn;
     protected final Fade fadeOut;
@@ -44,7 +47,6 @@ public abstract class SongPlayer {
     protected Sound.Source soundCategory;
     protected ChannelMode channelMode = new MonoMode();
     protected boolean enable10Octave;
-
     com.xxmicloxx.NoteBlockAPI.SongPlayer oldSongPlayer;
 
     public SongPlayer(Song song) {
@@ -153,10 +155,10 @@ public abstract class SongPlayer {
             case "fadeDuration":
                 fadeIn.setFadeDuration((int) value);
                 break;
-            case "fadeDone":
+            case FADE_DONE_KEY:
                 fadeIn.setFadeDone((int) value);
                 break;
-            case "tick":
+            case TICK_KEY:
                 tick = (short) value;
                 break;
             case "addplayer":
@@ -283,7 +285,7 @@ public abstract class SongPlayer {
     @Deprecated
     public void setFadeDone(int fadeDone) {
         fadeIn.setFadeDone(fadeDone);
-        CallUpdate("fadeDone", fadeDone);
+        CallUpdate(FADE_DONE_KEY, fadeDone);
     }
 
     /**
@@ -341,7 +343,7 @@ public abstract class SongPlayer {
                             if (fade != -1) {
                                 volume = (byte) fade;
                             }
-                            CallUpdate("fadeDone", fadeIn.getFadeDone());
+                            CallUpdate(FADE_DONE_KEY, fadeIn.getFadeDone());
                         } else if (tick >= song.getLength() - fadeOut.getFadeDuration()) {
                             int fade = fadeOut.calculateFade();
                             if (fade != -1) {
@@ -353,7 +355,7 @@ public abstract class SongPlayer {
                         if (tick > song.getLength()) {
                             tick = -1;
                             fadeIn.setFadeDone(0);
-                            CallUpdate("fadeDone", fadeIn.getFadeDone());
+                            CallUpdate(FADE_DONE_KEY, fadeIn.getFadeDone());
                             fadeOut.setFadeDone(0);
                             volume = fadeIn.getFadeTarget();
                             if (repeat == RepeatMode.ONE) {
@@ -379,7 +381,7 @@ public abstract class SongPlayer {
                                         songQueue.replaceAll((s, v) -> false);
                                         song = left.get(rng.nextInt(left.size()));
                                         actualSong = playlist.getIndex(song);
-                                        CallUpdate("song", song);
+                                        CallUpdate(SONG_KEY, song);
                                         if (repeat == RepeatMode.ALL) {
                                             SongLoopEvent event = new SongLoopEvent(this);
                                             plugin.doSync(() -> MinecraftServer.getGlobalEventHandler().call(event));
@@ -392,7 +394,7 @@ public abstract class SongPlayer {
                                         song = left.get(rng.nextInt(left.size()));
                                         actualSong = playlist.getIndex(song);
 
-                                        CallUpdate("song", song);
+                                        CallUpdate(SONG_KEY, song);
                                         SongNextEvent event = new SongNextEvent(this);
                                         plugin.doSync(() -> MinecraftServer.getGlobalEventHandler().call(event));
                                         continue;
@@ -401,14 +403,14 @@ public abstract class SongPlayer {
                                     if (playlist.hasNext(actualSong)) {
                                         actualSong++;
                                         song = playlist.get(actualSong);
-                                        CallUpdate("song", song);
+                                        CallUpdate(SONG_KEY, song);
                                         SongNextEvent event = new SongNextEvent(this);
                                         plugin.doSync(() -> MinecraftServer.getGlobalEventHandler().call(event));
                                         continue;
                                     } else {
                                         actualSong = 0;
                                         song = playlist.get(actualSong);
-                                        CallUpdate("song", song);
+                                        CallUpdate(SONG_KEY, song);
                                         if (repeat == RepeatMode.ALL) {
                                             SongLoopEvent event = new SongLoopEvent(this);
                                             plugin.doSync(() -> MinecraftServer.getGlobalEventHandler().call(event));
@@ -428,7 +430,7 @@ public abstract class SongPlayer {
                             }
                             continue;
                         }
-                        CallUpdate("tick", tick);
+                        CallUpdate(TICK_KEY, tick);
 
                         plugin.doSync(() -> {
                             try {
@@ -667,7 +669,7 @@ public abstract class SongPlayer {
      */
     public void setTick(short tick) {
         this.tick = tick;
-        CallUpdate("tick", tick);
+        CallUpdate(TICK_KEY, tick);
     }
 
     /**
@@ -788,9 +790,9 @@ public abstract class SongPlayer {
                 tick = -1;
                 fadeIn.setFadeDone(0);
                 fadeOut.setFadeDone(0);
-                CallUpdate("song", song);
-                CallUpdate("fadeDone", fadeIn.getFadeDone());
-                CallUpdate("tick", tick);
+                CallUpdate(SONG_KEY, song);
+                CallUpdate(FADE_DONE_KEY, fadeIn.getFadeDone());
+                CallUpdate(TICK_KEY, tick);
             }
         } finally {
             lock.unlock();

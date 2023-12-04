@@ -25,16 +25,6 @@ public final class CompatibilityUtils {
     }
 
     /**
-     * Returns if SoundCategory is able to be used
-     *
-     * @return can use SoundCategory
-     * @see SoundCategory
-     */
-    private static boolean isSoundCategoryCompatible() {
-        return true;
-    }
-
-    /**
      * Plays a sound using NMS and reflection
      */
     public static void playSound(Player player, Pos location, String sound,
@@ -112,10 +102,8 @@ public final class CompatibilityUtils {
                 instruments.addAll(getVersionCustomInstruments(0.0112f));
                 instruments.addAll(getVersionCustomInstruments(0.0114f));
             }
-        } else if (com.xxmicloxx.NoteBlockAPI.utils.CompatibilityUtils.getServerVersion() < 0.0114f) {
-            if (firstCustomInstrumentIndex == 16) {
-                instruments.addAll(getVersionCustomInstruments(0.0114f));
-            }
+        } else if (com.xxmicloxx.NoteBlockAPI.utils.CompatibilityUtils.getServerVersion() < 0.0114f && firstCustomInstrumentIndex == 16) {
+            instruments.addAll(getVersionCustomInstruments(0.0114f));
         }
 
         return instruments;
