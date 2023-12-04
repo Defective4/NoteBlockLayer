@@ -35,7 +35,6 @@ public enum Instrument {
 
     static {
         Instrument[] var0 = values();
-        int var1 = var0.length;
 
         for (Instrument instrument : var0) {
             BY_DATA.put(instrument.getType(), instrument);
@@ -52,33 +51,6 @@ public enum Instrument {
     @Internal
     public static @Nullable Instrument getByType(byte type) {
         return (Instrument) BY_DATA.get(type);
-    }
-
-    // $FF: synthetic method
-    private static Instrument[] $values() {
-        return new Instrument[]{PIANO,
-                                BASS_DRUM,
-                                SNARE_DRUM,
-                                STICKS,
-                                BASS_GUITAR,
-                                FLUTE,
-                                BELL,
-                                GUITAR,
-                                CHIME,
-                                XYLOPHONE,
-                                IRON_XYLOPHONE,
-                                COW_BELL,
-                                DIDGERIDOO,
-                                BIT,
-                                BANJO,
-                                PLING,
-                                ZOMBIE,
-                                SKELETON,
-                                CREEPER,
-                                DRAGON,
-                                WITHER_SKELETON,
-                                PIGLIN,
-                                CUSTOM_HEAD};
     }
 
     @Internal

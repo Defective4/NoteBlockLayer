@@ -243,7 +243,7 @@ public abstract class SongPlayer {
                         if (tick > song.getLength()) {
                             playing = false;
                             tick = -1;
-                            SongEndEvent event = new SongEndEvent(SongPlayer.this);
+                            SongEndEvent event = new SongEndEvent(this);
                             plugin.doSync(() -> MinecraftServer.getGlobalEventHandler().call(event));
                             if (autoDestroy) {
                                 destroy();

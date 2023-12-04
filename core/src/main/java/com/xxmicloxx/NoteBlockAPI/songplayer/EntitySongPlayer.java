@@ -74,8 +74,10 @@ public class EntitySongPlayer extends RangeSongPlayer {
             Note note = layer.getNote(tick);
             if (note == null) continue;
 
-            float volume = (layer.getVolume() * (int) this.volume * (int) playerVolume * note.getVelocity()) / 100_00_00_00F
-                           * (1F / 16F * getDistance());
+            float a = layer.getVolume() * (int) this.volume * (int) playerVolume * note.getVelocity();
+            float b = 1F / 16F * getDistance();
+            float volume = a / 100_00_00_00F
+                           * b;
 
             channelMode.play(player, entity.getPosition(), song, layer, note, soundCategory, volume, !enable10Octave);
 

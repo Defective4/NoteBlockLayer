@@ -1,7 +1,6 @@
 package com.xxmicloxx.NoteBlockAPI.utils;
 
 import com.xxmicloxx.NoteBlockAPI.model.CustomInstrument;
-import com.xxmicloxx.NoteBlockAPI.model.SoundCategory;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
 import net.minestom.server.instance.block.Block;
@@ -25,16 +24,6 @@ public final class CompatibilityUtils {
      * @deprecated Compare {@link #getServerVersion()} with 0.0112f
      */
     public static boolean isPost1_12() {
-        return true;
-    }
-
-    /**
-     * Returns if SoundCategory is able to be used
-     *
-     * @return can use SoundCategory
-     * @see SoundCategory
-     */
-    private static boolean isSoundCategoryCompatible() {
         return true;
     }
 
@@ -102,7 +91,7 @@ public final class CompatibilityUtils {
                     category,
                     volume,
                     pitch
-            ), location);
+            ), MathUtils.stereoPan(location, distance));
         } else if (sound instanceof String str) {
             try {
                 player.playSound(net.kyori.adventure.sound.Sound.sound(
@@ -110,7 +99,7 @@ public final class CompatibilityUtils {
                         category,
                         volume,
                         pitch
-                ), location);
+                ), MathUtils.stereoPan(location, distance));
             } catch (Exception ignored) {
             }
         }
@@ -168,10 +157,8 @@ public final class CompatibilityUtils {
                 instruments.addAll(getVersionCustomInstruments(0.0112f));
                 instruments.addAll(getVersionCustomInstruments(0.0114f));
             }
-        } else if (getServerVersion() < 0.0114f) {
-            if (firstCustomInstrumentIndex == 16) {
-                instruments.addAll(getVersionCustomInstruments(0.0114f));
-            }
+        } else if (getServerVersion() < 0.0114f && firstCustomInstrumentIndex == 16) {
+            instruments.addAll(getVersionCustomInstruments(0.0114f));
         }
 
         return instruments;

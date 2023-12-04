@@ -1,27 +1,27 @@
 version: 25
 jobs:
-- name: Analyze with PMD
-  steps:
-  - !CheckoutStep
-    name: checkout
-    cloneCredential: !DefaultCredential {}
-    withLfs: false
-    withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !CommandStep
-    name: analyze code
-    runInContainer: false
-    interpreter: !DefaultInterpreter
-      commands:
-      - java -cp "/shared/pliki/Programowanie/Java/Programy/pmd-bin-7.0.0-rc4/lib/*" net.sourceforge.pmd.cli.PmdCli check -z / -R rulesets/java/unusedcode.xml,rulesets/java/unnecessary.xml,rulesets/java/strings.xml,rulesets/java/imports.xml,rulesets/java/basic.xml -r report.xml -f xml -d . --no-fail-on-violation
-    useTTY: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !PublishPMDReportStep
-    name: upload report
-    reportName: PMD Report
-    filePatterns: report.xml
-    condition: ALWAYS
-  retryCondition: never
-  maxRetries: 3
-  retryDelay: 30
-  timeout: 3600
+  - name: Analyze with PMD
+    steps:
+      - !CheckoutStep
+        name: checkout
+        cloneCredential: !DefaultCredential { }
+        withLfs: false
+        withSubmodules: false
+        condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+      - !CommandStep
+        name: analyze code
+        runInContainer: false
+        interpreter: !DefaultInterpreter
+          commands:
+            - java -cp "/shared/pliki/Programowanie/Java/Programy/pmd-bin-7.0.0-rc4/lib/*" net.sourceforge.pmd.cli.PmdCli check -z / -R rulesets/java/unusedcode.xml,rulesets/java/unnecessary.xml,rulesets/java/strings.xml,rulesets/java/imports.xml,rulesets/java/basic.xml -r report.xml -f xml -d . --no-fail-on-violation
+        useTTY: false
+        condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+      - !PublishPMDReportStep
+        name: upload report
+        reportName: PMD Report
+        filePatterns: report.xml
+        condition: ALWAYS
+    retryCondition: never
+    maxRetries: 3
+    retryDelay: 30
+    timeout: 3600
