@@ -21,7 +21,7 @@ public class NoteBlockPlayerMain {
             Collections.synchronizedMap(new HashMap<String, ArrayList<SongPlayer>>());
     public Map<String, Byte> playerVolume = Collections.synchronizedMap(new HashMap<String, Byte>());
 
-    private boolean disabling = false;
+    private boolean disabling;
 
     /**
      * Returns true if a Player is currently receiving a song
@@ -30,8 +30,8 @@ public class NoteBlockPlayerMain {
      * @return is receiving a song
      */
     public static boolean isReceivingSong(Player player) {
-        return ((plugin.playingSongs.get(player.getUuid()) != null)
-                && (!plugin.playingSongs.get(player.getUuid()).isEmpty()));
+        return plugin.playingSongs.get(player.getUuid()) != null
+               && !plugin.playingSongs.get(player.getUuid()).isEmpty();
     }
 
     /**

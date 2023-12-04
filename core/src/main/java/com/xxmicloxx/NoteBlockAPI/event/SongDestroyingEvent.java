@@ -11,8 +11,8 @@ import net.minestom.server.event.trait.CancellableEvent;
 public class SongDestroyingEvent implements CancellableEvent {
 
 
-    private SongPlayer song;
-    private boolean cancelled = false;
+    private final SongPlayer song;
+    private boolean cancelled;
 
     public SongDestroyingEvent(SongPlayer song) {
         this.song = song;

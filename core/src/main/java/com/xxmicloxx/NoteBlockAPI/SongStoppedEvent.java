@@ -9,7 +9,7 @@ import net.minestom.server.event.Event;
 public class SongStoppedEvent implements Event {
 
 
-    private SongPlayer songPlayer;
+    private final SongPlayer songPlayer;
 
     public SongStoppedEvent(SongPlayer songPlayer) {
         this.songPlayer = songPlayer;

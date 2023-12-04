@@ -96,7 +96,7 @@ public class Playlist {
      * @return true if there is another {@link Song} after specified index
      */
     public boolean hasNext(int songNumber) {
-        return songs.size() > (songNumber + 1);
+        return songs.size() > songNumber + 1;
     }
 
     /**

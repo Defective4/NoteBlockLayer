@@ -9,7 +9,7 @@ public class Fade {
     private byte fadeStart;
     private byte fadeTarget;
     private int fadeDuration;
-    private int fadeDone = 0;
+    private int fadeDone;
 
     /**
      * Create new fade effect

@@ -11,18 +11,18 @@ import java.util.HashMap;
 public class Song implements Cloneable {
 
     private HashMap<Integer, Layer> layerHashMap = new HashMap<Integer, Layer>();
-    private short songHeight;
-    private short length;
-    private String title;
-    private File path;
-    private String author;
-    private String originalAuthor;
-    private String description;
-    private float speed;
-    private float delay;
-    private CustomInstrument[] customInstruments;
-    private int firstCustomInstrumentIndex;
-    private boolean isStereo = false;
+    private final short songHeight;
+    private final short length;
+    private final String title;
+    private final File path;
+    private final String author;
+    private final String originalAuthor;
+    private final String description;
+    private final float speed;
+    private final float delay;
+    private final CustomInstrument[] customInstruments;
+    private final int firstCustomInstrumentIndex;
+    private boolean isStereo;
 
     /**
      * Create Song instance by copying other Song parameters

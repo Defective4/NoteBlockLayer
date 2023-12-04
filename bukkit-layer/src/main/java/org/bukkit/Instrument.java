@@ -46,7 +46,7 @@ public enum Instrument {
 
     private final byte type;
 
-    private Instrument(int type) {
+    Instrument(int type) {
         this.type = (byte) type;
     }
 

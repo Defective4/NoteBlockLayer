@@ -31,7 +31,7 @@ public enum Sound {
     NOTE_BIT("BLOCK_NOTE_BLOCK_BIT"),
     NOTE_BANJO("BLOCK_NOTE_BLOCK_BANJO");
 
-    private static Map<String, org.bukkit.Sound> cachedSoundMap = new HashMap<>();
+    private static final Map<String, org.bukkit.Sound> cachedSoundMap = new HashMap<>();
 
     static {
         // Cache sound access.
@@ -40,8 +40,8 @@ public enum Sound {
                 cachedSoundMap.put(soundName.toUpperCase(), sound.getSound());
     }
 
-    private String[] versionDependentNames;
-    private org.bukkit.Sound cached = null;
+    private final String[] versionDependentNames;
+    private org.bukkit.Sound cached;
 
     Sound(String... versionDependentNames) {
         this.versionDependentNames = versionDependentNames;

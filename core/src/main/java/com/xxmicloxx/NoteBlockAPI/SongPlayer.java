@@ -18,17 +18,17 @@ public abstract class SongPlayer {
 
     private final Lock lock = new ReentrantLock();
     protected Song song;
-    protected boolean playing = false;
+    protected boolean playing;
     protected short tick = -1;
     protected Map<String, Boolean> playerList = Collections.synchronizedMap(new HashMap<String, Boolean>());
-    protected boolean autoDestroy = false;
-    protected boolean destroyed = false;
+    protected boolean autoDestroy;
+    protected boolean destroyed;
     protected Thread playerThread;
     protected byte volume = 100;
     protected byte fadeStart = volume;
     protected byte fadeTarget = 100;
     protected int fadeDuration = 60;
-    protected int fadeDone = 0;
+    protected int fadeDone;
     protected FadeType fadeType = FadeType.FADE_LINEAR;
     protected NoteBlockPlayerMain plugin;
 
@@ -540,7 +540,7 @@ public abstract class SongPlayer {
 
     void makeNewClone(Class newClass) {
         try {
-            Constructor c = newClass.getDeclaredConstructor(new Class[]{SongPlayer.class});
+            Constructor c = newClass.getDeclaredConstructor(SongPlayer.class);
             c.setAccessible(true);
             newSongPlayer = (com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer) c.newInstance(new Object[]{this});
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException

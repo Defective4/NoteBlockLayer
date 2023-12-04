@@ -10,9 +10,9 @@ import net.minestom.server.event.Event;
 public class PlayerRangeStateChangeEvent implements Event {
 
 
-    private SongPlayer song;
-    private Player player;
-    private boolean state;
+    private final SongPlayer song;
+    private final Player player;
+    private final boolean state;
 
     public PlayerRangeStateChangeEvent(SongPlayer song, Player player, boolean state) {
         this.song = song;

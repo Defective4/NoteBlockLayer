@@ -16,7 +16,7 @@ import net.minestom.server.entity.Player;
 public class StereoMode extends ChannelMode {
 
     private float maxDistance = 2;
-    private ChannelMode fallbackChannelMode = null;
+    private ChannelMode fallbackChannelMode;
 
     @Override
     public void play(Player player, Pos location, Song song, Layer layer, Note note, net.kyori.adventure.sound.Sound.Source soundCategory, float volume, float pitch) {
@@ -27,9 +27,9 @@ public class StereoMode extends ChannelMode {
 
         float distance = 0;
         if (layer.getPanning() == 100) {
-            distance = ((note.getPanning() - 100) / 100f) * maxDistance;
+            distance = (note.getPanning() - 100) / 100f * maxDistance;
         } else {
-            distance = ((layer.getPanning() - 100 + note.getPanning() - 100) / 200f) * maxDistance;
+            distance = (layer.getPanning() - 100 + note.getPanning() - 100) / 200f * maxDistance;
         }
         if (InstrumentUtils.isCustomInstrument(note.getInstrument())) {
             CustomInstrument instrument = song.getCustomInstruments()[note.getInstrument() - InstrumentUtils.getCustomInstrumentFirstIndex()];
@@ -77,9 +77,9 @@ public class StereoMode extends ChannelMode {
 
         float distance = 0;
         if (layer.getPanning() == 100) {
-            distance = ((note.getPanning() - 100) / 100f) * maxDistance;
+            distance = (note.getPanning() - 100) / 100f * maxDistance;
         } else {
-            distance = ((layer.getPanning() - 100 + note.getPanning() - 100) / 200f) * maxDistance;
+            distance = (layer.getPanning() - 100 + note.getPanning() - 100) / 200f * maxDistance;
         }
         if (InstrumentUtils.isCustomInstrument(note.getInstrument())) {
             CustomInstrument instrument = song.getCustomInstruments()[note.getInstrument() - InstrumentUtils.getCustomInstrumentFirstIndex()];
