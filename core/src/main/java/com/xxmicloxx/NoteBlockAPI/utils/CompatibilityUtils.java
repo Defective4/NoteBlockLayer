@@ -133,14 +133,14 @@ public class CompatibilityUtils {
 
     private static void playSoundUniversal(Player player, Pos location, Object sound,
                                            net.kyori.adventure.sound.Sound.Source category, float volume, float pitch, float distance) {
-        if(sound instanceof Sound snd) {
+        if (sound instanceof Sound snd) {
             player.playSound(net.kyori.adventure.sound.Sound.sound(
                     snd,
                     category,
                     volume,
                     pitch
             ), location);
-        }else if(sound instanceof String str) {
+        } else if (sound instanceof String str) {
             try {
                 player.playSound(net.kyori.adventure.sound.Sound.sound(
                         NamespaceID.from(str),
@@ -148,7 +148,8 @@ public class CompatibilityUtils {
                         volume,
                         pitch
                 ), location);
-            }catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
     }
 

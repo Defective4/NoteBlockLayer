@@ -6,7 +6,7 @@ import net.minestom.server.event.trait.CancellableEvent;
 
 public class SongLoopEvent implements CancellableEvent {
 
-    
+
     private SongPlayer song;
     private boolean cancelled = false;
 
@@ -14,7 +14,6 @@ public class SongLoopEvent implements CancellableEvent {
         this.song = song;
     }
 
-    
 
     /**
      * Returns SongPlayer which {@link Song} ends and is going to start again
@@ -25,7 +24,6 @@ public class SongLoopEvent implements CancellableEvent {
         return song;
     }
 
-    
 
     @Override
     public boolean isCancelled() {

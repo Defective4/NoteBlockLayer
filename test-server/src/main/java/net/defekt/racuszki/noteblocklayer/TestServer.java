@@ -38,7 +38,7 @@ public final class TestServer {
                     if (sender instanceof Player player)
                         try (InputStream is = new URL(ctx.get(arg)).openStream()) {
                             List<SongPlayer> players = NoteBlockAPI.getSongPlayersByPlayer(player);
-                            if(players!=null)
+                            if (players != null)
                                 players.forEach(SongPlayer::destroy);
                             SongPlayer sp = new RadioSongPlayer(NBSDecoder.parse(is));
                             sp.addPlayer(player);

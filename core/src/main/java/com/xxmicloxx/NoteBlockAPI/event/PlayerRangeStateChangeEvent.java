@@ -9,7 +9,7 @@ import net.minestom.server.event.Event;
  */
 public class PlayerRangeStateChangeEvent implements Event {
 
-    
+
     private SongPlayer song;
     private Player player;
     private boolean state;
@@ -20,9 +20,6 @@ public class PlayerRangeStateChangeEvent implements Event {
         this.state = state;
     }
 
-    
-
-    
 
     /**
      * Returns SongPlayer which range Player enters or leaves

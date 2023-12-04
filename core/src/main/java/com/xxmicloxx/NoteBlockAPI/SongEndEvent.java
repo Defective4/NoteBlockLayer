@@ -8,18 +8,17 @@ import net.minestom.server.event.Event;
 @Deprecated
 public class SongEndEvent implements Event {
 
-    
+
     private SongPlayer song;
 
     public SongEndEvent(SongPlayer song) {
         this.song = song;
     }
 
-    
 
     public SongPlayer getSongPlayer() {
         return song;
     }
 
-    
+
 }

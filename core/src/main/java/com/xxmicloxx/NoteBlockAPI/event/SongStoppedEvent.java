@@ -11,14 +11,13 @@ import net.minestom.server.event.Event;
  */
 public class SongStoppedEvent implements Event {
 
-    
+
     private SongPlayer songPlayer;
 
     public SongStoppedEvent(SongPlayer songPlayer) {
         this.songPlayer = songPlayer;
     }
 
-    
 
     /**
      * Returns SongPlayer which is now stopped
@@ -29,7 +28,6 @@ public class SongStoppedEvent implements Event {
         return songPlayer;
     }
 
-    
 
 }
 
