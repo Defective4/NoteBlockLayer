@@ -3,7 +3,7 @@ package com.xxmicloxx.NoteBlockAPI.utils;
 
 import net.minestom.server.coordinate.Pos;
 
-public class MathUtils {
+public final class MathUtils {
 
     private static final double[] cos = new double[360];
     private static final double[] sin = new double[360];
@@ -13,6 +13,9 @@ public class MathUtils {
             cos[deg] = Math.cos(Math.toRadians(deg));
             sin[deg] = Math.sin(Math.toRadians(deg));
         }
+    }
+
+    private MathUtils() {
     }
 
     private static double[] getCos() {
@@ -37,7 +40,6 @@ public class MathUtils {
      * Calculate new Pos for stereo
      *
      * @param distance negative for left side, positive for right side
-     * @return
      */
     public static Pos stereoPan(Pos location, float distance) {
         int angle = getAngle(location.yaw());

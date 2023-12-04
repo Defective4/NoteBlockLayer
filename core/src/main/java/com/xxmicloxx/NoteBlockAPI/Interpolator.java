@@ -18,7 +18,10 @@ package com.xxmicloxx.NoteBlockAPI;
  * @deprecated {@link com.xxmicloxx.NoteBlockAPI.utils.Interpolator}
  */
 @Deprecated
-public class Interpolator {
+public final class Interpolator {
+
+    private Interpolator() {
+    }
 
     public static double[] interpLinear(double[] x, double[] y, double[] xi) throws IllegalArgumentException {
         return com.xxmicloxx.NoteBlockAPI.utils.Interpolator.interpLinear(x, y, xi);

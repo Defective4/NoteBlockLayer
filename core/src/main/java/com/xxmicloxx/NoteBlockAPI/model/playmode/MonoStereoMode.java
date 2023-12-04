@@ -175,8 +175,6 @@ public class MonoStereoMode extends ChannelMode {
 
     /**
      * Returns distance of {@link Note} from {@link Player}'s head.
-     *
-     * @return
      */
     public float getDistance() {
         return distance;
@@ -184,8 +182,6 @@ public class MonoStereoMode extends ChannelMode {
 
     /**
      * Sets distance of {@link Note} from {@link Player}'s head.
-     *
-     * @param distance
      */
     public void setDistance(float distance) {
         this.distance = distance;

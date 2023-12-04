@@ -17,15 +17,14 @@ public class NoteBlockAPI {
 
     private static final NoteBlockAPI plugin = new NoteBlockAPI();
 
-    private final Map<UUID, ArrayList<SongPlayer>> playingSongs = new ConcurrentHashMap<UUID, ArrayList<SongPlayer>>();
-    private final Map<UUID, Byte> playerVolume = new ConcurrentHashMap<UUID, Byte>();
+    private final Map<UUID, ArrayList<SongPlayer>> playingSongs = new ConcurrentHashMap<>();
+    private final Map<UUID, Byte> playerVolume = new ConcurrentHashMap<>();
 
     private boolean disabling;
 
     /**
      * Returns true if a Player is currently receiving a song
      *
-     * @param player
      * @return is receiving a song
      */
     public static boolean isReceivingSong(Player player) {
@@ -35,7 +34,6 @@ public class NoteBlockAPI {
     /**
      * Returns true if a Player with specified UUID is currently receiving a song
      *
-     * @param uuid
      * @return is receiving a song
      */
     public static boolean isReceivingSong(UUID uuid) {
@@ -45,8 +43,6 @@ public class NoteBlockAPI {
 
     /**
      * Stops the song for a Player
-     *
-     * @param player
      */
     public static void stopPlaying(Player player) {
         stopPlaying(player.getUuid());
@@ -54,8 +50,6 @@ public class NoteBlockAPI {
 
     /**
      * Stops the song for a Player
-     *
-     * @param uuid
      */
     public static void stopPlaying(UUID uuid) {
         ArrayList<SongPlayer> songs = plugin.playingSongs.get(uuid);
@@ -69,9 +63,6 @@ public class NoteBlockAPI {
 
     /**
      * Sets the volume for a given Player
-     *
-     * @param player
-     * @param volume
      */
     public static void setPlayerVolume(Player player, byte volume) {
         setPlayerVolume(player.getUuid(), volume);
@@ -79,9 +70,6 @@ public class NoteBlockAPI {
 
     /**
      * Sets the volume for a given Player
-     *
-     * @param uuid
-     * @param volume
      */
     public static void setPlayerVolume(UUID uuid, byte volume) {
         plugin.playerVolume.put(uuid, volume);
@@ -90,7 +78,6 @@ public class NoteBlockAPI {
     /**
      * Gets the volume for a given Player
      *
-     * @param player
      * @return volume (byte)
      */
     public static byte getPlayerVolume(Player player) {
@@ -100,16 +87,10 @@ public class NoteBlockAPI {
     /**
      * Gets the volume for a given Player
      *
-     * @param uuid
      * @return volume (byte)
      */
     public static byte getPlayerVolume(UUID uuid) {
-        Byte byteObj = plugin.playerVolume.get(uuid);
-        if (byteObj == null) {
-            byteObj = 100;
-            plugin.playerVolume.put(uuid, byteObj);
-        }
-        return byteObj;
+        return plugin.playerVolume.computeIfAbsent(uuid, k -> 100);
     }
 
     public static ArrayList<SongPlayer> getSongPlayersByPlayer(Player player) {

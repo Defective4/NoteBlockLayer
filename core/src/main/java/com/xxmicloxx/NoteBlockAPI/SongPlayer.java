@@ -15,11 +15,12 @@ import java.util.concurrent.locks.ReentrantLock;
 @Deprecated
 public abstract class SongPlayer {
 
+    protected final Map<String, Boolean> playerList = Collections.synchronizedMap(new HashMap<>());
+    protected final NoteBlockPlayerMain plugin;
     private final Lock lock = new ReentrantLock();
     protected Song song;
     protected boolean playing;
     protected short tick = -1;
-    protected Map<String, Boolean> playerList = Collections.synchronizedMap(new HashMap<String, Boolean>());
     protected boolean autoDestroy;
     protected boolean destroyed;
     protected Thread playerThread;
@@ -29,8 +30,6 @@ public abstract class SongPlayer {
     protected int fadeDuration = 60;
     protected int fadeDone;
     protected FadeType fadeType = FadeType.FADE_LINEAR;
-    protected NoteBlockPlayerMain plugin;
-
     protected net.kyori.adventure.sound.Sound.Source soundCategory;
 
     private com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer newSongPlayer;
@@ -54,10 +53,10 @@ public abstract class SongPlayer {
     }
 
     private Song createSongFromNew(com.xxmicloxx.NoteBlockAPI.model.Song s) {
-        HashMap<Integer, Layer> layerHashMap = new HashMap<Integer, Layer>();
+        HashMap<Integer, Layer> layerHashMap = new HashMap<>();
         for (Integer i : s.getLayerHashMap().keySet()) {
             com.xxmicloxx.NoteBlockAPI.model.Layer l = s.getLayerHashMap().get(i);
-            HashMap<Integer, Note> noteHashMap = new HashMap<Integer, Note>();
+            HashMap<Integer, Note> noteHashMap = new HashMap<>();
             for (Integer iL : l.getNotesAtTicks().keySet()) {
                 com.xxmicloxx.NoteBlockAPI.model.Note note = l.getNotesAtTicks().get(iL);
                 noteHashMap.put(iL, new Note(note.getInstrument(), note.getKey()));
@@ -139,8 +138,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets the FadeType for this SongPlayer
-     *
-     * @param fadeType
      */
     public void setFadeType(FadeType fadeType) {
         this.fadeType = fadeType;
@@ -158,8 +155,6 @@ public abstract class SongPlayer {
 
     /**
      * Set target volume for fade
-     *
-     * @param fadeTarget
      */
     public void setFadeTarget(byte fadeTarget) {
         this.fadeTarget = fadeTarget;
@@ -168,8 +163,6 @@ public abstract class SongPlayer {
 
     /**
      * Gets the starting time for the fade
-     *
-     * @return
      */
     public byte getFadeStart() {
         return fadeStart;
@@ -177,8 +170,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets the starting time for the fade
-     *
-     * @param fadeStart
      */
     public void setFadeStart(byte fadeStart) {
         this.fadeStart = fadeStart;
@@ -196,8 +187,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets the duration of the fade
-     *
-     * @param fadeDuration
      */
     public void setFadeDuration(int fadeDuration) {
         this.fadeDuration = fadeDuration;
@@ -215,8 +204,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets the tick when fade will be finished
-     *
-     * @param fadeDone
      */
     public void setFadeDone(int fadeDone) {
         this.fadeDone = fadeDone;
@@ -316,8 +303,6 @@ public abstract class SongPlayer {
 
     /**
      * Adds a Player to the list of Players listening to this SongPlayer
-     *
-     * @param player
      */
     public void addPlayer(Player player) {
         addPlayer(player, true);
@@ -329,12 +314,12 @@ public abstract class SongPlayer {
             if (!playerList.containsKey(player.getUsername())) {
                 playerList.put(player.getUsername(), false);
                 ArrayList<SongPlayer> songs = NoteBlockPlayerMain.plugin.playingSongs
-                        .get(player.getUsername());
+                        .get(player.getUuid());
                 if (songs == null) {
-                    songs = new ArrayList<SongPlayer>();
+                    songs = new ArrayList<>();
                 }
                 songs.add(this);
-                NoteBlockPlayerMain.plugin.playingSongs.put(player.getUsername(), songs);
+                NoteBlockPlayerMain.plugin.playingSongs.put(player.getUuid(), songs);
                 if (notify) {
                     CallUpdate("addplayer", player);
                 }
@@ -412,8 +397,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets whether the SongPlayer is playing
-     *
-     * @param playing
      */
     public void setPlaying(boolean playing) {
         this.playing = playing;
@@ -426,8 +409,6 @@ public abstract class SongPlayer {
 
     /**
      * Gets the current tick of this SongPlayer
-     *
-     * @return
      */
     public short getTick() {
         return tick;
@@ -435,8 +416,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets the current tick of this SongPlayer
-     *
-     * @param tick
      */
     public void setTick(short tick) {
         this.tick = tick;
@@ -459,13 +438,13 @@ public abstract class SongPlayer {
                 CallUpdate("removeplayer", player);
             }
             playerList.remove(player.getUsername());
-            if (NoteBlockPlayerMain.plugin.playingSongs.get(player.getUsername()) == null) {
+            if (NoteBlockPlayerMain.plugin.playingSongs.get(player.getUuid()) == null) {
                 return;
             }
             ArrayList<SongPlayer> songs = new ArrayList<>(
-                    NoteBlockPlayerMain.plugin.playingSongs.get(player.getUsername()));
+                    NoteBlockPlayerMain.plugin.playingSongs.get(player.getUuid()));
             songs.remove(this);
-            NoteBlockPlayerMain.plugin.playingSongs.put(player.getUsername(), songs);
+            NoteBlockPlayerMain.plugin.playingSongs.put(player.getUuid(), songs);
             if (playerList.isEmpty() && autoDestroy) {
                 SongEndEvent event = new SongEndEvent(this);
                 plugin.doSync(() -> MinecraftServer.getGlobalEventHandler().call(event));
@@ -497,8 +476,6 @@ public abstract class SongPlayer {
 
     /**
      * Gets the Song being played by this SongPlayer
-     *
-     * @return
      */
     public Song getSong() {
         return song;
@@ -516,8 +493,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets the SoundCategory for this SongPlayer
-     *
-     * @param soundCategory
      */
     public void setCategory(net.kyori.adventure.sound.Sound.Source soundCategory) {
         this.soundCategory = soundCategory;
@@ -536,11 +511,11 @@ public abstract class SongPlayer {
         newSongPlayer = newPlayer;
     }
 
-    void makeNewClone(Class newClass) {
+    <T extends com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer> void makeNewClone(Class<T> newClass) {
         try {
-            Constructor c = newClass.getDeclaredConstructor(SongPlayer.class);
+            Constructor<T> c = newClass.getDeclaredConstructor(SongPlayer.class);
             c.setAccessible(true);
-            newSongPlayer = (com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer) c.newInstance(new Object[]{this});
+            newSongPlayer = (T) c.newInstance(new Object[]{this});
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                  | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();

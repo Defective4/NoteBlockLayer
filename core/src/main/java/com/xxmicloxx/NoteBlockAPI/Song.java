@@ -21,7 +21,7 @@ public class Song implements Cloneable {
     private final float delay;
     private final CustomInstrument[] customInstruments;
     private final int firstCustomInstrumentIndex;
-    private HashMap<Integer, Layer> layerHashMap = new HashMap<Integer, Layer>();
+    private final HashMap<Integer, Layer> layerHashMap;
 
     /**
      * Create Song instance by copying other Song parameters
@@ -42,14 +42,6 @@ public class Song implements Cloneable {
     }
 
     /**
-     * @param speed
-     * @param layerHashMap
-     * @param songHeight
-     * @param length
-     * @param title
-     * @param author
-     * @param description
-     * @param path
      * @deprecated Use {@link #Song(float, HashMap, short, short, String, String, String, File, int)}
      */
     public Song(float speed, HashMap<Integer, Layer> layerHashMap,
@@ -68,15 +60,6 @@ public class Song implements Cloneable {
     }
 
     /**
-     * @param speed
-     * @param layerHashMap
-     * @param songHeight
-     * @param length
-     * @param title
-     * @param author
-     * @param description
-     * @param path
-     * @param customInstruments
      * @deprecated Use {@link #Song(float, HashMap, short, short, String, String, String, File, int, CustomInstrument[])}
      */
     public Song(float speed, HashMap<Integer, Layer> layerHashMap,
@@ -190,8 +173,6 @@ public class Song implements Cloneable {
 
     /**
      * Gets the speed (ticks per second) of this Song
-     *
-     * @return
      */
     public float getSpeed() {
         return speed;

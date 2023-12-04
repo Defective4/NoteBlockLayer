@@ -78,7 +78,6 @@ public class RadioSongPlayer extends SongPlayer {
     /**
      * Sets if the SongPlayer will play Notes from two sources as stereo
      *
-     * @param stereo
      * @deprecated
      */
     @Deprecated
@@ -88,8 +87,6 @@ public class RadioSongPlayer extends SongPlayer {
 
     /**
      * Sets how will be {@link Note} played to {@link Player} (eg. mono or stereo). Default is {@link MonoMode}.
-     *
-     * @param mode
      */
     public void setChannelMode(ChannelMode mode) {
         channelMode = mode;

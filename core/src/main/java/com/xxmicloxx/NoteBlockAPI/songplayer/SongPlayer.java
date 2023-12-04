@@ -22,6 +22,11 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public abstract class SongPlayer {
 
+    protected final Map<UUID, Boolean> playerList = new ConcurrentHashMap<>();
+    protected final Fade fadeIn;
+    protected final Fade fadeOut;
+    protected final Map<Song, Boolean> songQueue = new ConcurrentHashMap<>(); //True if already played
+    protected final NoteBlockAPI plugin;
     private final Lock lock = new ReentrantLock();
     private final Random rng = new Random();
     protected Song song;
@@ -30,18 +35,12 @@ public abstract class SongPlayer {
     protected boolean playing;
     protected boolean fading;
     protected short tick = -1;
-    protected Map<UUID, Boolean> playerList = new ConcurrentHashMap<UUID, Boolean>();
     protected boolean autoDestroy;
     protected boolean destroyed;
     protected byte volume = 100;
-    protected Fade fadeIn;
-    protected Fade fadeOut;
     protected Fade fadeTemp;
     protected RepeatMode repeat = RepeatMode.NO;
     protected boolean random;
-    protected Map<Song, Boolean> songQueue = new ConcurrentHashMap<Song, Boolean>(); //True if already played
-    protected NoteBlockAPI plugin;
-
     protected Sound.Source soundCategory;
     protected ChannelMode channelMode = new MonoMode();
     protected boolean enable10Octave;
@@ -92,16 +91,15 @@ public abstract class SongPlayer {
     }
 
     /**
-     * @param songPlayer
      * @deprecated
      */
     SongPlayer(com.xxmicloxx.NoteBlockAPI.SongPlayer songPlayer) {
         oldSongPlayer = songPlayer;
         com.xxmicloxx.NoteBlockAPI.Song s = songPlayer.getSong();
-        HashMap<Integer, Layer> layerHashMap = new HashMap<Integer, Layer>();
+        HashMap<Integer, Layer> layerHashMap = new HashMap<>();
         for (Integer i : s.getLayerHashMap().keySet()) {
             com.xxmicloxx.NoteBlockAPI.Layer l = s.getLayerHashMap().get(i);
-            HashMap<Integer, Note> noteHashMap = new HashMap<Integer, Note>();
+            HashMap<Integer, Note> noteHashMap = new HashMap<>();
             for (Integer iL : l.getHashMap().keySet()) {
                 com.xxmicloxx.NoteBlockAPI.Note note = l.getHashMap().get(iL);
                 noteHashMap.put(iL, new Note(note.getInstrument(), note.getKey()));
@@ -193,7 +191,6 @@ public abstract class SongPlayer {
     /**
      * Sets the FadeType for this SongPlayer
      *
-     * @param fadeType
      * @deprecated set fadeIn value
      */
     @Deprecated
@@ -216,7 +213,6 @@ public abstract class SongPlayer {
     /**
      * Set target volume for fade
      *
-     * @param fadeTarget
      * @deprecated set fadeIn value
      */
     @Deprecated
@@ -228,7 +224,6 @@ public abstract class SongPlayer {
     /**
      * Gets the starting volume for the fade
      *
-     * @return
      * @deprecated returns fadeIn value
      */
     @Deprecated
@@ -239,7 +234,6 @@ public abstract class SongPlayer {
     /**
      * Sets the starting volume for the fade
      *
-     * @param fadeStart
      * @deprecated set fadeIn value
      */
     @Deprecated
@@ -262,7 +256,6 @@ public abstract class SongPlayer {
     /**
      * Sets the duration of the fade
      *
-     * @param fadeDuration
      * @deprecated set fadeIn value
      */
     @Deprecated
@@ -285,7 +278,6 @@ public abstract class SongPlayer {
     /**
      * Sets the tick when fade will be finished
      *
-     * @param fadeDone
      * @deprecated set fadeIn value
      */
     @Deprecated
@@ -382,11 +374,9 @@ public abstract class SongPlayer {
                                         }
                                     }
 
-                                    if (left.size() == 0) {
+                                    if (left.isEmpty()) {
                                         left.addAll(songQueue.keySet());
-                                        for (Song s : songQueue.keySet()) {
-                                            songQueue.put(s, false);
-                                        }
+                                        songQueue.replaceAll((s, v) -> false);
                                         song = left.get(rng.nextInt(left.size()));
                                         actualSong = playlist.getIndex(song);
                                         CallUpdate("song", song);
@@ -513,18 +503,15 @@ public abstract class SongPlayer {
     /**
      * Gets list of current Player UUIDs listening to this SongPlayer
      *
-     * @return list of Player UUIDs
+     * @return set of Player UUIDs
      */
     public Set<UUID> getPlayerUUIDs() {
-        Set<UUID> uuids = new HashSet<>();
-        uuids.addAll(playerList.keySet());
+        Set<UUID> uuids = new HashSet<>(playerList.keySet());
         return Collections.unmodifiableSet(uuids);
     }
 
     /**
      * Adds a Player to the list of Players listening to this SongPlayer
-     *
-     * @param player
      */
     public void addPlayer(Player player) {
         addPlayer(player.getUuid());
@@ -546,7 +533,7 @@ public abstract class SongPlayer {
                 playerList.put(player, false);
                 ArrayList<SongPlayer> songs = NoteBlockAPI.getSongPlayersByPlayer(player);
                 if (songs == null) {
-                    songs = new ArrayList<SongPlayer>();
+                    songs = new ArrayList<>();
                 }
                 songs.add(this);
                 NoteBlockAPI.setSongPlayersByPlayer(player, songs);
@@ -634,8 +621,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets whether the SongPlayer is playing
-     *
-     * @param playing
      */
     public void setPlaying(boolean playing) {
         setPlaying(playing, null);
@@ -643,9 +628,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets whether the SongPlayer is playing and whether it should fade if previous value was different
-     *
-     * @param playing
-     * @param fade
      */
     public void setPlaying(boolean playing, boolean fade) {
         setPlaying(playing, fade ? playing ? fadeIn : fadeOut : null);
@@ -675,8 +657,6 @@ public abstract class SongPlayer {
 
     /**
      * Gets the current tick of this SongPlayer
-     *
-     * @return
      */
     public short getTick() {
         return tick;
@@ -684,8 +664,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets the current tick of this SongPlayer
-     *
-     * @param tick
      */
     public void setTick(short tick) {
         this.tick = tick;
@@ -771,8 +749,6 @@ public abstract class SongPlayer {
 
     /**
      * Gets the Song being played by this SongPlayer
-     *
-     * @return
      */
     public Song getSong() {
         return song;
@@ -780,8 +756,6 @@ public abstract class SongPlayer {
 
     /**
      * Gets the Playlist being played by this SongPlayer
-     *
-     * @return
      */
     public Playlist getPlaylist() {
         return playlist;
@@ -796,8 +770,6 @@ public abstract class SongPlayer {
 
     /**
      * Get index of actually played {@link Song} in {@link Playlist}
-     *
-     * @return
      */
     public int getPlayedSongIndex() {
         return actualSong;
@@ -806,8 +778,6 @@ public abstract class SongPlayer {
     /**
      * Start playing {@link Song} at specified index in {@link Playlist}
      * If there is no {@link Song} at this index, {@link SongPlayer} will continue playing current song
-     *
-     * @param index
      */
     public void playSong(int index) {
         lock.lock();
@@ -851,8 +821,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets the SoundCategory for this SongPlayer
-     *
-     * @param soundCategory
      */
     public void setCategory(net.kyori.adventure.sound.Sound.Source soundCategory) {
         this.soundCategory = soundCategory;
@@ -872,7 +840,6 @@ public abstract class SongPlayer {
     /**
      * Sets whether the SongPlayer will loop
      *
-     * @param loop
      * @deprecated
      */
     public void setLoop(boolean loop) {
@@ -881,8 +848,6 @@ public abstract class SongPlayer {
 
     /**
      * Gets SongPlayer's {@link RepeatMode}
-     *
-     * @return
      */
     public RepeatMode getRepeatMode() {
         return repeat;
@@ -890,8 +855,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets SongPlayer's {@link RepeatMode}
-     *
-     * @param repeatMode
      */
     public void setRepeatMode(RepeatMode repeatMode) {
         this.repeat = repeatMode;
@@ -908,8 +871,6 @@ public abstract class SongPlayer {
 
     /**
      * Sets whether the SongPlayer will choose next song from player randomly
-     *
-     * @param random
      */
     public void setRandom(boolean random) {
         this.random = random;
@@ -930,11 +891,11 @@ public abstract class SongPlayer {
         }
     }
 
-    void makeNewClone(Class newClass) {
+    <T extends com.xxmicloxx.NoteBlockAPI.SongPlayer> void makeNewClone(Class<T> newClass) {
         try {
-            Constructor c = newClass.getDeclaredConstructor(SongPlayer.class);
+            Constructor<T> c = newClass.getDeclaredConstructor(SongPlayer.class);
             c.setAccessible(true);
-            oldSongPlayer = (com.xxmicloxx.NoteBlockAPI.SongPlayer) c.newInstance(new Object[]{this});
+            oldSongPlayer = (T) c.newInstance(new Object[]{this});
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                  | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();

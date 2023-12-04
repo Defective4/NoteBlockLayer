@@ -2,16 +2,17 @@ package com.xxmicloxx.NoteBlockAPI.utils;
 
 import com.xxmicloxx.NoteBlockAPI.model.Note;
 
-public class NoteUtils {
+public final class NoteUtils {
 
-    private static float[] pitches;
+    private static final float[] pitches = new float[2401];
 
     static {
-        pitches = new float[2401];
-
         for (int i = 0; i < 2401; i++) {
             pitches[i] = (float) Math.pow(2, (i - 1200d) / 1200d);
         }
+    }
+
+    private NoteUtils() {
     }
 
     @Deprecated
@@ -97,10 +98,6 @@ public class NoteUtils {
 
     /**
      * Returns true if combination of specified key and pitch is outside Minecraft octave range
-     *
-     * @param key
-     * @param pitch
-     * @return
      */
     public static boolean isOutOfRange(byte key, short pitch) {
         key = applyPitchToKey(key, pitch);

@@ -37,8 +37,7 @@ public enum Instrument {
         Instrument[] var0 = values();
         int var1 = var0.length;
 
-        for (int var2 = 0; var2 < var1; ++var2) {
-            Instrument instrument = var0[var2];
+        for (Instrument instrument : var0) {
             BY_DATA.put(instrument.getType(), instrument);
         }
 

@@ -50,7 +50,6 @@ public enum Sound {
     /**
      * Attempts to retrieve the org.bukkit.Sound equivalent of a version dependent enum name
      *
-     * @param bukkitSoundName
      * @return org.bukkit.Sound enum
      */
     public static org.bukkit.Sound getFromBukkitName(String bukkitSoundName) {

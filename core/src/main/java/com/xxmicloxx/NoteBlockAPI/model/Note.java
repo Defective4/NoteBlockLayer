@@ -41,8 +41,6 @@ public class Note {
 
     /**
      * Returns note key number (Minecraft key 0 corresponds to key 33)
-     *
-     * @return
      */
     public byte getKey() {
         return key;
@@ -50,8 +48,6 @@ public class Note {
 
     /**
      * Sets note key number (Minecraft key 0 corresponds to key 33)
-     *
-     * @param key
      */
     public void setKey(byte key) {
         this.key = key;
@@ -61,8 +57,6 @@ public class Note {
      * Returns note pitch.
      * 100 = 1 key
      * 1200 = 1 octave
-     *
-     * @return
      */
     public short getPitch() {
         return pitch;
@@ -81,8 +75,6 @@ public class Note {
 
     /**
      * Returns note velocity (volume)
-     *
-     * @return
      */
     public byte getVelocity() {
         return velocity;
@@ -102,8 +94,6 @@ public class Note {
 
     /**
      * Returns stereo panning of this note
-     *
-     * @return
      */
     public int getPanning() {
         return panning;
@@ -111,8 +101,6 @@ public class Note {
 
     /**
      * Sets stereo panning of this note
-     *
-     * @param panning
      */
     public void setPanning(int panning) {
         this.panning = panning;

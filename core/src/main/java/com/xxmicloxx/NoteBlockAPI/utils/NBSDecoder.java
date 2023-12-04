@@ -13,7 +13,10 @@ import java.util.HashMap;
 /**
  * Utils for reading Note Block Studio data
  */
-public class NBSDecoder {
+public final class NBSDecoder {
+
+    private NBSDecoder() {
+    }
 
     /**
      * Parses a Song from a Note Block Studio project file (.nbs)
@@ -51,7 +54,7 @@ public class NBSDecoder {
      * @see Song
      */
     private static Song parse(InputStream inputStream, File songFile) {
-        HashMap<Integer, Layer> layerHashMap = new HashMap<Integer, Layer>();
+        HashMap<Integer, Layer> layerHashMap = new HashMap<>();
         byte biggestInstrumentIndex = -1;
         boolean isStereo = false;
         try {
@@ -192,8 +195,6 @@ public class NBSDecoder {
                             firstcustominstrument,
                             customInstrumentsArray,
                             isStereo);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -202,11 +203,6 @@ public class NBSDecoder {
 
     /**
      * Sets a note at a tick in a song
-     *
-     * @param layerIndex
-     * @param ticks
-     * @param note
-     * @param layerHashMap
      */
     private static void setNote(int layerIndex, int ticks, Note note, HashMap<Integer, Layer> layerHashMap) {
         Layer layer = layerHashMap.get(layerIndex);

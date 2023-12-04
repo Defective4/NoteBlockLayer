@@ -2,22 +2,24 @@ package com.xxmicloxx.NoteBlockAPI.utils;
 
 import com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer;
 
-public class TimeUtils {
+public final class TimeUtils {
+
+    private TimeUtils() {
+    }
 
     /**
      * Returns {@link SongPlayer} song actual time in specified format
      *
-     * @param format     use:
-     *                   <ul>
-     *                   	<li>hh for two-digit hours</li>
-     *                   	<li>h for one-digit hours</li>
-     *                   	<li>mm for two-digit minutes</li>
-     *                   	<li>m for one-digit minutes</li>
-     *                   	<li>ss for two-digit seconds</li>
-     *                   	<li>s for one-digit seconds</li>
-     *                   	<li>m for miliseconds (do not use without seconds, would be more than 4 digits)</li>
-     *                   </ul>
-     * @param songPlayer
+     * @param format use:
+     *               <ul>
+     *               	<li>hh for two-digit hours</li>
+     *               	<li>h for one-digit hours</li>
+     *               	<li>mm for two-digit minutes</li>
+     *               	<li>m for one-digit minutes</li>
+     *               	<li>ss for two-digit seconds</li>
+     *               	<li>s for one-digit seconds</li>
+     *               	<li>m for miliseconds (do not use without seconds, would be more than 4 digits)</li>
+     *               </ul>
      * @return formatted string
      */
     public static String getActualTime(String format, SongPlayer songPlayer) {
@@ -27,17 +29,16 @@ public class TimeUtils {
     /**
      * Returns {@link SongPlayer} song length in specified format
      *
-     * @param format     use:
-     *                   <ul>
-     *                   	<li>hh for two-digit hours</li>
-     *                   	<li>h for one-digit hours</li>
-     *                   	<li>mm for two-digit minutes</li>
-     *                   	<li>m for one-digit minutes</li>
-     *                   	<li>ss for two-digit seconds</li>
-     *                   	<li>s for one-digit seconds</li>
-     *                   	<li>m for miliseconds (do not use without seconds, would be more than 4 digits)</li>
-     *                   </ul>
-     * @param songPlayer
+     * @param format use:
+     *               <ul>
+     *               	<li>hh for two-digit hours</li>
+     *               	<li>h for one-digit hours</li>
+     *               	<li>mm for two-digit minutes</li>
+     *               	<li>m for one-digit minutes</li>
+     *               	<li>ss for two-digit seconds</li>
+     *               	<li>s for one-digit seconds</li>
+     *               	<li>m for miliseconds (do not use without seconds, would be more than 4 digits)</li>
+     *               </ul>
      * @return formatted string
      */
     public static String getLength(String format, SongPlayer songPlayer) {

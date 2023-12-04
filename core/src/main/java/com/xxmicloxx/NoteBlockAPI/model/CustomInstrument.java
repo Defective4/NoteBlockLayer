@@ -12,10 +12,6 @@ public class CustomInstrument {
 
     /**
      * Creates a CustomInstrument
-     *
-     * @param index
-     * @param name
-     * @param soundFileName
      */
     public CustomInstrument(byte index, String name, String soundFileName) {
         this.index = index;

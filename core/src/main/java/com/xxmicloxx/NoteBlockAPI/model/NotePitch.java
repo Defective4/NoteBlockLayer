@@ -36,9 +36,9 @@ public enum NotePitch {
     NOTE_23(23, 1.88F, 1.88775F),
     NOTE_24(24, 2.0F, 2.00000F);
 
-    public int note;
-    public float pitchPre1_9;
-    public float pitchPost1_9;
+    public final int note;
+    public final float pitchPre1_9;
+    public final float pitchPost1_9;
 
     NotePitch(int note, float pitchPre1_9, float pitchPost1_9) {
         this.note = note;
