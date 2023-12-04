@@ -5,14 +5,13 @@ import net.minestom.server.event.Event;
 
 public class SongNextEvent implements Event {
 
-    
+
     private SongPlayer song;
 
     public SongNextEvent(SongPlayer song) {
         this.song = song;
     }
 
-    
 
     /**
      * Returns SongPlayer which is going to play next song in playlist
@@ -23,6 +22,5 @@ public class SongNextEvent implements Event {
         return song;
     }
 
-    
 
 }

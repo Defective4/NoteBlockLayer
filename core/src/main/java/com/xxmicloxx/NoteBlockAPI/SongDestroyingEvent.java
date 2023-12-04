@@ -8,7 +8,7 @@ import net.minestom.server.event.trait.CancellableEvent;
 @Deprecated
 public class SongDestroyingEvent implements CancellableEvent {
 
-    
+
     private SongPlayer song;
     private boolean cancelled = false;
 
@@ -16,7 +16,6 @@ public class SongDestroyingEvent implements CancellableEvent {
         this.song = song;
     }
 
-    
 
     public SongPlayer getSongPlayer() {
         return song;

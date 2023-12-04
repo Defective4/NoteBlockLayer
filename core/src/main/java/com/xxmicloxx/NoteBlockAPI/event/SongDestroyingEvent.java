@@ -18,7 +18,6 @@ public class SongDestroyingEvent implements CancellableEvent {
         this.song = song;
     }
 
-    
 
     /**
      * Returns SongPlayer which is being destroyed
@@ -29,7 +28,6 @@ public class SongDestroyingEvent implements CancellableEvent {
         return song;
     }
 
-    
 
     @Override
     public boolean isCancelled() {

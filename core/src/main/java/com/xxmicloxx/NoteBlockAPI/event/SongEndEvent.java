@@ -12,14 +12,13 @@ import net.minestom.server.event.Event;
  */
 public class SongEndEvent implements Event {
 
-    
+
     private SongPlayer song;
 
     public SongEndEvent(SongPlayer song) {
         this.song = song;
     }
 
-    
 
     /**
      * Returns SongPlayer which {@link Song} ends
@@ -30,5 +29,5 @@ public class SongEndEvent implements Event {
         return song;
     }
 
-    
+
 }

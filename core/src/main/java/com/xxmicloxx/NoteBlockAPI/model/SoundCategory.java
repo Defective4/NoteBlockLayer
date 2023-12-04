@@ -1,4 +1,5 @@
 package com.xxmicloxx.NoteBlockAPI.model;
+
 public enum SoundCategory {
 
     MASTER,

@@ -9,7 +9,7 @@ import net.minestom.server.event.Event;
 @Deprecated
 public class PlayerRangeStateChangeEvent implements Event {
 
-    
+
     private SongPlayer song;
     private Player player;
     private boolean state;

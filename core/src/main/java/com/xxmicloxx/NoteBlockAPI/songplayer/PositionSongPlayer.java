@@ -66,7 +66,6 @@ public class PositionSongPlayer extends RangeSongPlayer {
 
     /**
      * Gets location on which is the PositionSongPlayer playing
-     *
      */
     public Pos getTargetLocation() {
         return targetLocation;

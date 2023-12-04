@@ -10,7 +10,7 @@
     <name>NoteBlockAPI</name>
     <modules>
         <module>core</module>
-		<module>bukkit-layer</module>
+        <module>bukkit-layer</module>
         <module>test-server</module>
     </modules>
 

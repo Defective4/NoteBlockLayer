@@ -1,6 +1,5 @@
 package com.xxmicloxx.NoteBlockAPI;
 
-import net.kyori.adventure.sound.Sound;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 
