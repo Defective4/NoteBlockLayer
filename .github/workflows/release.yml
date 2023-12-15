@@ -1,0 +1,20 @@
+on: create
+
+jobs:
+  release:
+    runs-on: self-hosted
+    steps:
+      - uses: http://10.0.0.1:3000/actions/checkout@v4
+      - run: mvn clean package
+        name: "Maven CI"
+      - run: mkdir dist
+      - run: |
+          mv core/target/*.jar dist
+          mv test-server/target/*.jar dist
+        name: "Move artifacts to separate dir"
+      - uses: http://10.0.0.1:3000/actions/forgejo-release@v2
+        with:
+          direction: upload
+          url: http://10.0.0.1:3000
+          release-dir: dist
+          token: ${{secrets.ACTION_BOT_TOKEN}}
